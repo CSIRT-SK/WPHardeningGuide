@@ -11,13 +11,11 @@
 
 Ak chcete zakázať prístup nielen k `wp-login.php`, ale aj k `wp-admin` a ďalším súborom, použite tento kód:
 
-    ```apache
     <FilesMatch "^(wp-login\.php|wp-admin/)">
       Order Deny,Allow
       Deny from all
       Allow from xxx.xxx.xxx.xxx
     </FilesMatch>
-    ```
 
 Týmto spôsobom obmedzíte prístup nielen k `wp-login.php`, ale aj k akémukoľvek súboru alebo adresáru začínajúcemu s `wp-admin/`.
 
@@ -25,26 +23,22 @@ Týmto spôsobom obmedzíte prístup nielen k `wp-login.php`, ale aj k akémuko�
 
 Pridajte nasledujúci kód pre zakázanie prístupu k `wp-json`:
 
-    ```apache
     # Zakázať prístup k wp-json/
     <IfModule mod_rewrite.c>
       RewriteEngine On
       RewriteCond %{REQUEST_URI} ^/wp-json/ [NC]
       RewriteRule ^(.*)$ - [R=403,L]
     </IfModule>
-    ```
 
 ## 3. Zakázať prístup k XML-RPC
 
 Ak chcete zakázať XML-RPC, pridajte nasledujúci kód:
 
-    ```apache
     # Zakázanie prístupu XML-RPC
     <Files xmlrpc.php>
       Order Deny,Allow
       Deny from all
     </Files>
-    ```
 
 Uistite sa, že nahradíte `xxx.xxx.xxx.xxx` svojou skutočnou IP adresou alebo rozsahom adries (napríklad `192.168.0.10` alebo `192.168.0.0/24`). 
 Predtým, než urobíte tieto zmeny, uistite sa, že máte prístup k serveru a máte zálohu svojho súboru `.htaccess`. Testujte tieto zmeny na testovacom prostredí pred aplikovaním na živý web, aby ste predišli možným problémom.
